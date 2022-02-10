@@ -1,10 +1,9 @@
+import Pokedex from "./comp/Pokedex/Pokedex";
 
 function App() {
   return (
-    <div className="bg-red-700">
-      <header className="App-header">
-        Test
-      </header>
+    <div className="w-screen h-screen bg-slate-700">
+      <Pokedex></Pokedex>
     </div>
   );
 }
