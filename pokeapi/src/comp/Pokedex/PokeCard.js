@@ -11,12 +11,12 @@ export default function PokeCard({ pokeList, pokeIndex }) {
     setloading(false);
   }
   useEffect(() => {
-    console.log(pokeIndex);
     fetchPokemon(pokeList[pokeIndex].url);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokeIndex]);
 
   function createCard(pokemon) {
-    console.log(pokemon.name)
+    console.log(pokemon)
     const pokImgUrl = pokemon.sprites.other.dream_world.front_default;
     return (
       <div className="flex flex-col gap-4 items-center">
@@ -30,7 +30,8 @@ export default function PokeCard({ pokeList, pokeIndex }) {
   }
 
   return (
-    <div className="bg-white w-80 h-1/2 rounded-lg shadow-2xl p-8 text-3xl">
+    <div className="bg-white w-80 h-1/2 rounded-lg shadow-2xl p-8 text-3xl relative">
+      <p className="absolute left-4 top-4 text-xl font-semibold">#{pokeIndex}</p>
       {loading ? <p>Loading...</p> : createCard(pokemon)}
     </div>
   );

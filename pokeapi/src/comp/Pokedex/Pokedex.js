@@ -27,6 +27,7 @@ export default function Pokedex() {
 
   return (
     <div className="w-full h-full flex flex-col gap-8 justify-center items-center">
+      <p className="text-white text-6xl">Pokédex</p>
       {loading ? null : <PokeCard pokeList={pokeList} pokeIndex={pokeIndex} />}
       <div className="flex flex-row gap-8 w-80 justify-between">
         <button
