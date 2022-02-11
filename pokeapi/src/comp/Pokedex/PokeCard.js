@@ -19,8 +19,8 @@ export default function PokeCard({ pokeList, pokeIndex, overallIndex }) {
     const pokImgUrl = pokemon.sprites.other.dream_world.front_default;
     return (
       <div className="flex flex-col gap-4 items-center">
-        <div className="w-52 h-52 flex justify-center items-center mt-2 border-4 border-slate-400 rounded-full p-8">
-          <img className="max-h-fit" src={pokImgUrl} alt="pokemon" />
+        <div className="w-52 h-52 flex justify-center items-center mt-2 border-4 border-slate-400 rounded-full p-10">
+          <img src={pokImgUrl} alt="pokemon" />
         </div>
         <p className="w-full flex justify-center font-semibold mt-2 text-slate-800">
           {pokemon.name.toUpperCase()}

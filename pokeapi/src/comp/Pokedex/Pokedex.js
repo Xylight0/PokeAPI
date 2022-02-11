@@ -3,7 +3,7 @@ import PokeCard from "./PokeCard";
 
 export default function Pokedex() {
   const [pokeList, setPokeList] = useState([]);
-  const [pokeIndex, setpokeIndex] = useState(-1);
+  const [pokeIndex, setpokeIndex] = useState(1);
   const [overallIndex, setoverallIndex] = useState(0);
   const [loading, setloading] = useState(true);
   const [nextUrl, setnextUrl] = useState("https://pokeapi.co/api/v2/pokemon");
@@ -22,16 +22,17 @@ export default function Pokedex() {
   }, [pokeIndex, loading]);
 
   useEffect(() => {
+    console.log(pokeIndex);
     if (pokeIndex === 20) {
       setloading(true);
       getPokeList(nextUrl);
-      setpokeIndex(0);
+      setpokeIndex(1);
     }
-    /*if(pokeIndex === 0 && overallIndex > 1){
-        setloading(true);
-        getPokeList(prevUrl);
-        setpokeIndex(19);
-    }*/
+    if (pokeIndex === 0 && overallIndex > 10) {
+      setloading(true);
+      getPokeList(prevUrl);
+      setpokeIndex(19);
+    }
   }, [pokeIndex]);
 
   function getPokeList(url) {
@@ -42,16 +43,17 @@ export default function Pokedex() {
         setprevUrl(list.previous);
         let results = list.results;
         results.push({ name: "last" });
-        setPokeList(results);
+        setPokeList([{ name: "first" },...results]);
+        console.log([{ name: "first" },...results])
       })
-      .then(() => setpokeIndex(0))
+      //.then(() => {setpokeIndex(1)})
       .then(() => setloading(false));
   }
 
   return (
     <div className="w-full h-full flex flex-col gap-8 justify-center items-center">
       <p className="text-white text-6xl">Pokédex</p>
-      <div className="bg-white w-80 h-1/2 rounded-lg shadow-2xl p-8 text-3xl relative">
+      <div className="bg-white w-80 rounded-lg shadow-2xl p-8 text-3xl relative">
         {loading ? null : (
           <PokeCard
             pokeList={pokeList}
