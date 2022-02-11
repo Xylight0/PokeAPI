@@ -42,8 +42,6 @@ export default function Pokedex() {
       .then((list) => {
         setnextUrl(list.next);
         setprevUrl(list.previous);
-        //let results = list.results;
-        //results.push({ name: "last" });
         setPokeList([{ name: "first" },...list.results,{ name: "last" }]);
       })
       .then(() => setloading(false));
@@ -52,12 +50,13 @@ export default function Pokedex() {
   return (
     <div className="w-full h-full flex flex-col gap-8 justify-center items-center">
       <p className="text-white text-6xl">Pokédex</p>
-      <div className="bg-white w-80 rounded-lg shadow-2xl p-8 text-3xl relative">
+      <div className="bg-white w-80 rounded-lg shadow-2xl flex justify-center items-center p-8 h-96 text-3xl relative">
         {loading ? null : (
           <PokeCard
             pokeList={pokeList}
             pokeIndex={pokeIndex}
             overallIndex={overallIndex}
+            pokedexLoading={loading}
           />
         )}
       </div>
