@@ -11,6 +11,7 @@ export default function Pokedex() {
 
   useEffect(() => {
     getPokeList(nextUrl);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -30,8 +31,9 @@ export default function Pokedex() {
     if (pokeIndex === 0 && overallIndex > 10) {
       setloading(true);
       getPokeList(prevUrl);
-      setpokeIndex(19);
+      setpokeIndex(20);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokeIndex]);
 
   function getPokeList(url) {
@@ -40,10 +42,9 @@ export default function Pokedex() {
       .then((list) => {
         setnextUrl(list.next);
         setprevUrl(list.previous);
-        let results = list.results;
-        results.push({ name: "last" });
-        setPokeList([{ name: "first" },...results]);
-        console.log(results)
+        //let results = list.results;
+        //results.push({ name: "last" });
+        setPokeList([{ name: "first" },...list.results,{ name: "last" }]);
       })
       .then(() => setloading(false));
   }
