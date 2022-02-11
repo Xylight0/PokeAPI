@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function PokeCard({ pokeList, pokeIndex, overallIndex }) {
+export default function PokeCard({ pokeList, pokeIndex }) {
   const [pokemon, setpokemon] = useState(null);
   const [loading, setloading] = useState(true);
 
@@ -29,12 +29,5 @@ export default function PokeCard({ pokeList, pokeIndex, overallIndex }) {
     );
   }
 
-  return (
-    <div>
-      <p className="absolute left-4 top-4 text-xl font-semibold text-slate-700">
-        #{overallIndex}
-      </p>
-      {loading ? <p>Loading...</p> : createCard(pokemon)}
-    </div>
-  );
+  return <>{loading ? <p>Loading...</p> : createCard(pokemon)}</>;
 }

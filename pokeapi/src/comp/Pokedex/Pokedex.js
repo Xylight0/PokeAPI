@@ -11,7 +11,7 @@ export default function Pokedex() {
 
   useEffect(() => {
     getPokeList(nextUrl);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function Pokedex() {
       getPokeList(prevUrl);
       setpokeIndex(20);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokeIndex]);
 
   function getPokeList(url) {
@@ -42,7 +42,7 @@ export default function Pokedex() {
       .then((list) => {
         setnextUrl(list.next);
         setprevUrl(list.previous);
-        setPokeList([{ name: "first" },...list.results,{ name: "last" }]);
+        setPokeList([{ name: "first" }, ...list.results, { name: "last" }]);
       })
       .then(() => setloading(false));
   }
@@ -51,14 +51,19 @@ export default function Pokedex() {
     <div className="w-full h-full flex flex-col gap-8 justify-center items-center">
       <p className="text-white text-6xl">Pokédex</p>
       <div className="bg-white w-80 rounded-lg shadow-2xl flex justify-center items-center p-8 h-96 text-3xl relative">
-        {loading ? null : (
-          <PokeCard
-            pokeList={pokeList}
-            pokeIndex={pokeIndex}
-            overallIndex={overallIndex}
-            pokedexLoading={loading}
-          />
-        )}
+        <div>
+          <p className="absolute left-4 top-4 text-xl font-semibold text-slate-700">
+            #{overallIndex}
+          </p>
+          {loading ? null : (
+            <PokeCard
+              pokeList={pokeList}
+              pokeIndex={pokeIndex}
+              overallIndex={overallIndex}
+              pokedexLoading={loading}
+            />
+          )}
+        </div>
       </div>
       <div className="flex flex-row gap-8 w-80 justify-between">
         <button
