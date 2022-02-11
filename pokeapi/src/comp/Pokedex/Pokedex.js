@@ -22,7 +22,7 @@ export default function Pokedex() {
   }, [pokeIndex, loading]);
 
   useEffect(() => {
-    if (pokeIndex === 20) {
+    if (pokeIndex === 21) {
       setloading(true);
       getPokeList(nextUrl);
       setpokeIndex(1);
@@ -43,6 +43,7 @@ export default function Pokedex() {
         let results = list.results;
         results.push({ name: "last" });
         setPokeList([{ name: "first" },...results]);
+        console.log(results)
       })
       .then(() => setloading(false));
   }
@@ -65,7 +66,7 @@ export default function Pokedex() {
             setpokeIndex(() => (pokeIndex > 0 ? pokeIndex - 1 : 0));
             setoverallIndex(() => (overallIndex > 0 ? overallIndex - 1 : 0));
           }}
-          className="bg-white px-4 py-1 rounded-md flex justify-center items-center text-2xl font-semibold"
+          className="bg-white select-none px-4 py-1 rounded-md flex justify-center items-center text-2xl font-semibold"
         >
           Prev
         </button>
@@ -74,7 +75,7 @@ export default function Pokedex() {
             setpokeIndex(pokeIndex + 1);
             setoverallIndex(overallIndex + 1);
           }}
-          className="bg-white px-4 py-1 rounded-md flex justify-center items-center text-2xl font-semibold"
+          className="bg-white select-none px-4 py-1 rounded-md flex justify-center items-center text-2xl font-semibold"
         >
           Next
         </button>
