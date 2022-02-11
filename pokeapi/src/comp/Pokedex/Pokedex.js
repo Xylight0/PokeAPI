@@ -22,7 +22,6 @@ export default function Pokedex() {
   }, [pokeIndex, loading]);
 
   useEffect(() => {
-    console.log(pokeIndex);
     if (pokeIndex === 20) {
       setloading(true);
       getPokeList(nextUrl);
@@ -44,9 +43,7 @@ export default function Pokedex() {
         let results = list.results;
         results.push({ name: "last" });
         setPokeList([{ name: "first" },...results]);
-        console.log([{ name: "first" },...results])
       })
-      //.then(() => {setpokeIndex(1)})
       .then(() => setloading(false));
   }
 
