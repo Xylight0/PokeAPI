@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 
 export default function PokeCard({ pokeList, pokeIndex }) {
-  const [pokemon, setpokemon] = useState(null);
+  const [pokemon, setpokemon] = useState(null); //save fetched pokemon
   const [loading, setloading] = useState(true);
 
   async function fetchPokemon(url) {
-    const res = await fetch(url);
-    const data = await res.json();
-    setpokemon(data);
-    setloading(false);
+    //fetch pokemon
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      setpokemon(data);
+      setloading(false);
+    } catch (e) {}
   }
-  useEffect(() => {
+
+  useEffect(() => { //fetch pokemon when index changes
     fetchPokemon(pokeList[pokeIndex].url);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokeIndex]);

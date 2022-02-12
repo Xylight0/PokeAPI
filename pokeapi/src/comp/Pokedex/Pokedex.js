@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 import PokeCard from "./PokeCard";
 
 export default function Pokedex() {
-  const [pokeList, setPokeList] = useState([]);
-  const [pokeIndex, setpokeIndex] = useState(1);
-  const [overallIndex, setoverallIndex] = useState(0);
-  const [loading, setloading] = useState(true);
-  const [nextUrl, setnextUrl] = useState("https://pokeapi.co/api/v2/pokemon");
-  const [prevUrl, setprevUrl] = useState(null);
+  const [pokeList, setPokeList] = useState([]); //List of all pokemon
+  const [pokeIndex, setpokeIndex] = useState(1); //Index of fetched data 0-21
+  const [overallIndex, setoverallIndex] = useState(0); //Overall index
+  const [loading, setloading] = useState(true); //Data loading
+  const [nextUrl, setnextUrl] = useState("https://pokeapi.co/api/v2/pokemon"); //Url for the next 20 pokemon
+  const [prevUrl, setprevUrl] = useState(null); //Url of the previous 20 pokemon
 
   useEffect(() => {
-    getPokeList(nextUrl);
+    getPokeList(nextUrl); //get list of the first 20 pokemon on render
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    let titleName = !loading
+    let titleName = !loading //change title
       ? pokeList[pokeIndex].name.toUpperCase()
       : "Pokedex";
     document.title = titleName;
@@ -23,12 +23,12 @@ export default function Pokedex() {
   }, [pokeIndex, loading]);
 
   useEffect(() => {
-    if (pokeIndex === 21) {
+    if (pokeIndex === 21) { //end of the list => get next pokemon list
       setloading(true);
       getPokeList(nextUrl);
       setpokeIndex(1);
     }
-    if (pokeIndex === 0 && overallIndex > 10) {
+    if (pokeIndex === 0 && overallIndex > 1) { //start of the list => get previous pokemon list
       setloading(true);
       getPokeList(prevUrl);
       setpokeIndex(20);
@@ -36,13 +36,13 @@ export default function Pokedex() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokeIndex]);
 
-  function getPokeList(url) {
-    fetch(url)
+  function getPokeList(url) { //fetch pokemon list from api
+    fetch(url) 
       .then((res) => res.json())
       .then((list) => {
         setnextUrl(list.next);
         setprevUrl(list.previous);
-        setPokeList([{ name: "first" }, ...list.results, { name: "last" }]);
+        setPokeList([{ name: "first" }, ...list.results, { name: "last" }]); //add object at the start and end
       })
       .then(() => setloading(false));
   }
@@ -55,7 +55,7 @@ export default function Pokedex() {
           <p className="absolute left-4 top-4 text-xl font-semibold text-slate-700">
             #{overallIndex}
           </p>
-          {loading ? null : (
+          {loading ? null : ( //render the card with the fetched data
             <PokeCard
               pokeList={pokeList}
               pokeIndex={pokeIndex}
@@ -66,7 +66,7 @@ export default function Pokedex() {
         </div>
       </div>
       <div className="flex flex-row gap-8 w-80 justify-between">
-        <button
+        <button //decrement index on click
           onClick={() => {
             setpokeIndex(() => (pokeIndex > 0 ? pokeIndex - 1 : 0));
             setoverallIndex(() => (overallIndex > 0 ? overallIndex - 1 : 0));
@@ -75,7 +75,7 @@ export default function Pokedex() {
         >
           Prev
         </button>
-        <button
+        <button //increment index on click
           onClick={() => {
             setpokeIndex(pokeIndex + 1);
             setoverallIndex(overallIndex + 1);
